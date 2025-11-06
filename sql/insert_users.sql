@@ -1,4 +1,5 @@
-INSERT INTO user (id, name, email, register_date)
+INSERT INTO user (
+    name, email)
 VALUES 
 ('pepe', 'pepe@pepon. es' ),
 ('ana', 'ana@ana.es'),
