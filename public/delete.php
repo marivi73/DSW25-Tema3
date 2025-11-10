@@ -1,19 +1,18 @@
 <?php
-// Página de prueba. Se debe eliminar de producción.
 
-require_once '../vendor/autoload.php';
-require_once 'conexion.php';
+use Dsw\Blog\DAO\UserDAO;
 
-//echo "Conexión correcta";
+require_once '../bootstrap.php';
 
-//Consulta SQL o manipulación de la base de datos.
-
-if (isset($_GET['id'])) {
-    //borrar el id
-    $sql = "DELETE FROM user WHERE id= :id";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute(['id' => $_GET['id']]);
+if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
+    die('El id no es válido.');
 }
 
-header('Location: selectall.php');
+$id = $_GET['id'];
+
+$userDAO = new UserDAO($conn);
+$user = $userDAO->delete($id);
+
+// Vuelve a mostrar la tabla
+header('Location: users.php');
 exit();

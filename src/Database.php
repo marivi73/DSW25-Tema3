@@ -9,7 +9,8 @@ class Database
 {
     private static ?PDO $conn = null;
 
-    public static function getConnetion() : PDO {
+    //Patrón Singleton (solo hay una instancia)
+    public static function getConnection() : PDO {
         if(self::$conn){
             return self::$conn;
         }
