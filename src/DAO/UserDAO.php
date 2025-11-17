@@ -35,13 +35,13 @@ class UserDao {
     }
 
     public function delete(int $id): void {
-        $sql = "DELETE FROM users WHERE id = :id";
+        $sql = "DELETE FROM user WHERE id = :id";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute(['id' => $id]);
     }
 
     public function update(User $user){
-        $sql = "UPDATE users SET name =: name, email =: email WHERE id =: id";
+        $sql = "UPDATE user SET name =: name, email =: email WHERE id =: id";
         $stmt = $this->conn->prepare($sql);
 
         $stmt->execute([

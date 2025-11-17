@@ -5,10 +5,10 @@ use DateTime;
 
 class User {
     public function __construct(
-        private int $id,
+        private ?int $id,
         private string $name,
         private string $email,
-        private DateTime $registerDate,
+        private ?DateTime $registerDate,
     )
     {}
 
@@ -25,6 +25,4 @@ class User {
     public function setId(int $id) {$this->id = $id;}
     public function setName(string $name) {$this->name = $name;}
     public function setEmail(string $email) { $this->email = $email;}
-    
-
 }

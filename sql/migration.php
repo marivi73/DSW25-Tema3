@@ -1,7 +1,6 @@
 <?php
 
-require_once 'vendor/autoload.php';
-require_once 'public/conexion.php';
+require_once '../booststrap.php';
 
 if (isset($argv[1])) {
     try {

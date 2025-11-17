@@ -1,16 +1,17 @@
 <?php
 // Crear un usuario
 
-require_once '../vendor/autoload.php';
-require_once 'conexion.php';
+use Dsw\Blog\DAO\UserDao;
+use Dsw\Blog\Models\User;
 
-$sql = "INSERT INTO user (name, email) VALUES(:name, :email)";
-$stmt = $pdo->prepare($sql);
+require_once '../bootstrap.php';
 
-$stmt->execute([
-    'name' => $_POST['name'],
-    'email' => $_POST['email']
-]);
+if (isset($_POST['email'], $_POST['name'])){
+    $user = new User(null, $_POST['name'], $_POST['email'], null);
+    
+    $userDAO = new UserDao($conn);
+    $user = $userDAO->create($user);
+}
 
-header('Location: selectall.php');
+header('Location: users.php');
 exit();
