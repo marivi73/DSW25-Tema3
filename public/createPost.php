@@ -2,15 +2,10 @@
 if(isset($_GET['id']) && is_numeric($_GET['id'])) {
     $id = $_GET['id'];
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Crear Artículo</h1>
+<?php 
+$titulo = "FCrear Artículo";
+include '../includes/header.php';
+?>
     <form action="storePost.php?user_id=<?= $id ?>" method="post">
         <p>
             <label for="title">Título: </label>
@@ -24,8 +19,9 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])) {
             <button type="submit">Crear</button>
         </p>
     </form>
-</body>
-</html>
+<?php 
+include '../includes/footer.php';
+?>
 <?php
 }else{
     die("Id de status no válido");

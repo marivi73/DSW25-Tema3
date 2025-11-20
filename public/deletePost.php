@@ -11,6 +11,7 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
 $id = $_GET['id'];
 
 $postDAO = new PostDao($conn);
+$post = $postDAO->delete($id);
 
 // Vuelve a mostrar la tabla
 header('Location: posts.php');

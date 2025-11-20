@@ -1,7 +1,7 @@
 INSERT INTO user (
-    name, email)
+    name, email, password, level)
 VALUES 
-('pepe', 'pepe@pepon. es' ),
-('ana', 'ana@ana.es'),
-('marta', 'marta@marta.es')
+('pepe', 'pepe@pepon. es', 'pepe', 'user' ),
+('ana', 'ana@ana.es', 'ana', 'admin'),
+('marta', 'marta@marta.es', 'marta', 'user')
 ;

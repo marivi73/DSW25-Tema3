@@ -1,0 +1,8 @@
+body{
+    background-color: aquamarine;
+}
+
+.error {
+    background-color: lightcoral;
+    padding: 8px;
+}

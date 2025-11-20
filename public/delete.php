@@ -11,6 +11,7 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
 $id = $_GET['id'];
 
 $userDAO = new UserDAO($conn);
+$userDAO->delete($id);
 
 // Vuelve a mostrar la tabla
 header('Location: users.php');

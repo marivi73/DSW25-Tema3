@@ -26,7 +26,7 @@ $posts = $postDAO->getAll();
             <tr>
                 <th>ID</th>
                 <th>Título</th>
-                <th>ID Usuario</th>
+                <th>Usuario</th>
             </tr>
         </thead>
         <tbody>
