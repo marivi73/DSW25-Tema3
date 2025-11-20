@@ -5,11 +5,11 @@ use Dsw\Blog\DAO\UserDao;
 
 require_once '../bootstrap.php';
 
-if(!isset($_GET['id']) || !is_numeric($_GET['id'])){
+if(!isset($_POST['id']) || !is_numeric($_POST['id'])){
     die('El id no es válido.');
 }
 
-$id = $_GET['id'];
+$id = $_POST['id'];
 
 if (isset($_POST['id'], $_POST['name'], $_POST['email'])) {
     $userDAO = new UserDao($conn);
@@ -19,11 +19,12 @@ if (isset($_POST['id'], $_POST['name'], $_POST['email'])) {
 
     //Modifico los datos:
     $user->setName($_POST['name']);
+    $user->setEmail($_POST['email']);
 
     //Guardo el usuario:
     $userDAO->update($user);
 }
 
 
-header('Location: selectall.php');
+header('Location: users.php');
 exit(); 

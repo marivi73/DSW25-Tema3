@@ -2,10 +2,8 @@
 
 use Dsw\Blog\DAO\PostDao;
 use Dsw\Blog\DAO\UserDao;
-use Dsw\Blog\Database;
-use Dsw\Blog\Models\Post;
 
-require_once '../vendor/autoload.php';
+require_once '../bootstrap.php';
 
 if(!(isset($_GET['id']) && is_numeric($_GET['id']))){
     die('El id no es válido.');
@@ -33,13 +31,14 @@ $user = $userDAO->get($userId);
     <title>Document</title>
 </head>
 <body>
-    <?php
-    if ($post){
-        printf("<h1>%s: %s</h1>", $post->getId(), $post->getTitle());
-        printf("<h2>%s</h2>", $post->getBody());
-    }else{
-        echo "Artículo no encontrado.";
-    }
-    ?>
+    <h1><?= $post->getTitle() ?></h1>
+    <p><?= $post->getBody() ?></p>
+    <h3><?= $user->getName() ?></h3>
+    <p>
+        <a href="editPost.php?id=<?= $post->getId() ?>">Editar Artículo</a>
+    </p>
+    <p>
+        <a href="deletePost.php?id=<?= $post->getId() ?>">Eliminar Artículo</a>
+    </p>
 </body>
 </html>

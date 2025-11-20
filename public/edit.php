@@ -2,7 +2,7 @@
 
 use Dsw\Blog\DAO\UserDao;
 
-require_once '../boostrap.php';
+require_once '../bootstrap.php';
 
 if(!isset($_GET['id']) || !is_numeric($_GET['id'])){
     die('El id no es válido.');

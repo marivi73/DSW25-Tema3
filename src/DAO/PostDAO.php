@@ -5,26 +5,25 @@ use DateTime;
 use Dsw\Blog\Models\Post;
 use PDO;
 
-class PostDao {
+class PostDAO {
     public function __construct(
         private PDO $conn
-    )
-    {}
+    ) {}
 
-    public function get($id): ?Post {
-        $sql = 'SELECT * FROM posts WHERE id = :id';
+    public function get(int $id): ?Post {
+        $sql = "SELECT * FROM posts WHERE id = :id";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute(['id' => $id]);
         $register = $stmt->fetch();
         if ($register) {
             return new Post($id, 
-            $register['title'], 
-            $register['body'], 
-            new DateTime($register['publication_date']),
-            $register['user_id']
-        );
+                $register['title'], 
+                $register['body'], 
+                new DateTime($register['publication_date']),
+                $register['user_id']
+            );
         }
-        return null;
+        return null;        
     }
 
     public function getAll(): array {
@@ -33,15 +32,16 @@ class PostDao {
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         $registers = $stmt->fetchAll();
-        foreach($registers as $register){
+        foreach($registers as $register) {
             $posts[] = new Post($register['id'], 
-            $register['title'], $register['body'], 
-            new DateTime($register['publication_date']),
-            $register['user_id']
-        );
+                $register['title'], 
+                $register['body'], 
+                new DateTime($register['publication_date']),
+                $register['user_id']
+            );
         }
         return $posts;
-    }
+    } 
 
     public function getByUser($userId): array {
         $posts = [];
@@ -49,41 +49,44 @@ class PostDao {
         $stmt = $this->conn->prepare($sql);
         $stmt->execute(['user_id' => $userId]);
         $registers = $stmt->fetchAll();
-        foreach($registers as $register){
+        foreach($registers as $register) {
             $posts[] = new Post($register['id'], 
-            $register['title'], $register['body'], 
-            new DateTime($register['publication_date']),
-            $register['user_id']
-        );
+                $register['title'], 
+                $register['body'], 
+                new DateTime($register['publication_date']),
+                $register['user_id']
+            );
         }
         return $posts;
     }
 
-    // public function delete(int $id): void {
-    //     $sql = "DELETE FROM posts WHERE id = :id";
-    //     $stmt = $this->conn->prepare($sql);
-    //     $stmt->execute(['id' => $id]);
-    // }
+    public function create(Post $post): Post {
+        $sql = "INSERT INTO posts (title, body, user_id) VALUES (:title, :body, :user_id)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([
+            'title' => $post->getTitle(),
+            'body' => $post->getBody(),
+            'user_id' => $post->getUserId()
+        ]);
 
-    // public function update(Post $post){
-    //     $sql = "UPDATE posts SET title =: title, body =: body WHERE id =: id";
-    //     $stmt = $this->conn->prepare($sql);
+        $post->setId($this->conn->lastInsertId());
+        return $post;
+    }
 
-    //     $stmt->execute([
-    //         'id' => $post->getId(),
-    //         'name' => $post->getTitle(),
-    //         'email' => $post->getBody()
-    //     ]);
-    // }
+    public function delete(int $id): void {
+        $sql = "DELETE FROM posts WHERE id = :id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute(['id' => $id]);
+    }
 
-    // public function create(Post $post): Post {
-    //     $sql = "INSERT INTO posts (title, body) VALUES(:title, :body)";
-    //     $stmt = $this->conn->prepare($sql);
-    //     $stmt->execute([
-    //         'title' => $post->getTitle(),
-    //         'body' => $post->getBody()
-    //     ]);
-    //     $post->setId($this->conn->lastInsertId());
-    //     return $post;
-    // }
+    public function update(Post $post) {
+        $sql = "UPDATE posts SET title=:title, body=:body, user_id=:user_id WHERE id=:id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([
+            'id' => $post->getId(),
+            'title' => $post->getTitle(),
+            'body' => $post->getBody(),
+            'user_id' => $post->getUserId()
+        ]);
+    }
 }
