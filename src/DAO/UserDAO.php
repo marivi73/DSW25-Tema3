@@ -48,7 +48,9 @@ class UserDao {
         $stmt->execute([
             'id' => $user->getId(),
             'name' => $user->getName(),
-            'email' => $user->getEmail()
+            'email' => $user->getEmail(),
+            'password' => $user->getPassword(),
+            'level' => $user->getLevel()
         ]);
     }
 

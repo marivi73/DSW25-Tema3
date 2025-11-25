@@ -3,7 +3,7 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])) {
     $id = $_GET['id'];
 ?>
 <?php 
-$titulo = "FCrear Artículo";
+$titulo = "Crear Artículo";
 include '../includes/header.php';
 ?>
     <form action="storePost.php?user_id=<?= $id ?>" method="post">

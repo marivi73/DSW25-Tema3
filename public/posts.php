@@ -1,26 +1,19 @@
 <?php
 
+use Dsw\Blog\DAO\LikeDAO;
 use Dsw\Blog\DAO\PostDao;
 use Dsw\Blog\DAO\UserDao;
 
 require_once '../bootstrap.php';
 
+accessControl($user); // No hay que poner el level porque está 'user' por defecto.
+
 $postDAO = new PostDao($conn);
 $posts = $postDAO->getAll();
 
+$titulo ="Publicaciones";
+include '../includes/header.php';
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Listao de Artículos</h1>
-    <!-- <p>
-        <a href="createPost.php">Crear un artículo</a>
-    </p> -->
     <table>
         <thead>
             <tr>
@@ -35,14 +28,15 @@ $posts = $postDAO->getAll();
             foreach($posts as $post){
                 $userId = $post->getUserId();
                 $user = $userDAO->get($userId);
+                $likeDAO = new LikeDAO($conn);
                 echo "<tr>";
                 printf("<td>%s</td>", $post->getId());
                 printf("<td> <a href=\"post.php?id=%s\">%s</a></td>", $post->getId(), $post->getTitle());
                 printf("<td>%s</td>", $user->getName());
+                printf('<td>%s</td>', $likeDAO->countLikes($post->getId()));
                 echo "</tr>";
             }
             ?>
         </tbody>
     </table>
-</body>
-</html>
+<?php include '../includes/footer.php'; ?>

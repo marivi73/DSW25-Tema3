@@ -24,10 +24,15 @@ class User {
     public function getEmail() {return $this->email;}
     public function getRegisterDate() {return $this->registerDate;}
     public function getLevel() {return $this->level;}
+    public function getPassword() { return $this->password;}
 
     public function setId(int $id) {$this->id = $id;}
     public function setName(string $name) {$this->name = $name;}
     public function setEmail(string $email) { $this->email = $email;}
     public function setPassword(string $password) { $this->password = $password;}
     public function setLevel(string $level) { $this->level = $level;}
+
+    public function isAdmin() {
+        return $this->level === "admin";
+    }
 }

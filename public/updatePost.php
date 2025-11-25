@@ -17,6 +17,13 @@ if (isset($_POST['title'], $_POST['body'], $_POST['user_id'])) {
     //Obtengo el artículo
     $post = $postDao->get($id);
 
+    if ($post) {
+        // Si no es el usuario el autor del post, se redirige a prohibido. 
+        if ($user->getId() !== $post->getUserId()) {
+            header('Location: prohibido.php');
+            exit();
+        }
+
     //Modifico los datos:
     $post->setTitle($_POST['title']);
     $post->setBody($_POST['body']);
@@ -25,7 +32,7 @@ if (isset($_POST['title'], $_POST['body'], $_POST['user_id'])) {
     //Guardo el artículo:
     $postDao->update($post);
 }
-
+}
 
 header('Location: posts.php');
 exit();

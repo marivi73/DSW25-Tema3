@@ -4,6 +4,7 @@
 use Dsw\Blog\DAO\UserDao;
 
 require_once '../bootstrap.php';
+accessControl($user, 'admin');
 
 if(!isset($_POST['id']) || !is_numeric($_POST['id'])){
     die('El id no es válido.');
@@ -20,6 +21,8 @@ if (isset($_POST['id'], $_POST['name'], $_POST['email'])) {
     //Modifico los datos:
     $user->setName($_POST['name']);
     $user->setEmail($_POST['email']);
+    $user->setPassword($_POST['password']);
+    $user->setLevel($_POST['role']);
 
     //Guardo el usuario:
     $userDAO->update($user);
